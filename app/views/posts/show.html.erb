@@ -1,14 +1,14 @@
+<div class="hero-unit">
+  <h1>Post</h1>
+</div>
+
 <fieldset>
-<legend>Posts</legend>
-<p>
-  <b>Title:</b>
-  <%= @post.title %>
-</p>
- 
-<p>
-  <b>Content:</b>
-  <%= @post.content %>
-</p>
+
+  <h3>Title: "<%= @post.title %>"</h3>
+
+  <h4><b>Content: <%= @post.content %></b></h4>
+  
+
  </fieldset>
 <%if @post.comments.size > 0%>
  
