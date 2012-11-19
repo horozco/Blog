@@ -1,0 +1,19 @@
+// Place all the styles related to the posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.posts p {
+  margin: 4px 0
+}
+
+.posts.hover{
+  background: #CEECF5;
+}
+
+.status .admin{
+  display: none;
+}
+
+.status.hover .admin{
+  display: inline;
+}

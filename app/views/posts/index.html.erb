@@ -1,0 +1,33 @@
+<div class="hero-unit">
+  <h1>All the Posts</h1>
+</div>
+
+ <%@posts.sort!{ |x,y| y.updated_at <=>x.updated_at}%>
+
+<%if !@posts.empty?%>
+  <% @posts.each do |post| %>
+    <div class= "posts">
+      <strong><%= post.title%></strong>
+      <strong><%= post.user%></strong>
+      <p><%= post.content%></p>
+      <div class="meta">
+        <%= link_to time_ago_in_words(post.created_at) + " ago |  ", post %>
+      <span class="admin">
+            <%=link_to "Delete Posts", post, method: :delete, data:{confirm: "Are you sure your want to delete this post?"}%>
+      </span>
+      </div>
+    </div>
+  <%end%>
+<%else%>
+<div class="alert alert">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <p>Blog Empty! :( </p>
+</div>
+<%end%>
+
+<%if user_session%>
+  <br><%= link_to "New Post", new_post_path, class: "btn btn-success" %>
+<%else%>
+  <br>Don't have a Blog H account? <%=link_to "Registrer", new_user_registration_path, class: "btn"%><br><br>
+  Already have a Blog H account? <%=link_to "Log in", new_user_session_path, class: "btn btn-success"%>
+<%end%>

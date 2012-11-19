@@ -1,0 +1,43 @@
+<fieldset>
+<legend>Posts</legend>
+<p>
+  <b>Title:</b>
+  <%= @post.title %>
+</p>
+ 
+<p>
+  <b>Content:</b>
+  <%= @post.content %>
+</p>
+ </fieldset>
+<%if @post.comments.size > 0%>
+ 
+<fieldset>
+   <legend>Comments</legend>
+
+<% @post.comments.each do |comment| %>
+  <p>
+    <b><%= comment.commenter %><br></b>
+  </p>
+ 
+  <p>
+    <%= comment.body %>
+  </p>
+<% end %>
+ </fieldset>
+ <%end%>
+
+<%= simple_form_for([@post, @post.comments.build]) do |f| %> 
+  <fieldset>
+   <legend>Write a Comment</legend>
+    <%= f.input :commenter %>
+    <%= f.input :body %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </fieldset>
+<% end %>
+ 
+<br />
+ 
+<%= link_to 'Back to Posts', posts_path %>
