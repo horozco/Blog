@@ -3,10 +3,11 @@ Blog::Application.routes.draw do
 
   resources :posts do 
     resources :comments
-end
+  end
+
   root :to => "posts#index"
 
- get 'feed', to: 'posts#index', as: :feed
+  get 'feed', to: 'posts#index', as: :feed
 
   devise_scope :user do
     get 'register', to: 'devise/registrations#new', as: :register

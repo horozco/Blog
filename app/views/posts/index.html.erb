@@ -26,6 +26,6 @@
 <%if user_session%>
   <br><%= link_to "New Post", new_post_path, class: "btn btn-success" %>
 <%else%>
-  <br>Don't have a Blog H account? <%=link_to "Registrer", new_user_registration_path, class: "btn"%><br><br>
-  Already have a Blog H account? <%=link_to "Log in", new_user_session_path, class: "btn btn-success"%>
+  <br>Don't have a Blog H account? <%=link_to "Registrer", register_path, class: "btn"%><br><br>
+  Already have a Blog H account? <%=link_to "Log in", login_path, class: "btn btn-success"%>
 <%end%>
