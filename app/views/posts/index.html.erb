@@ -5,14 +5,17 @@
 <%if !@posts.empty?%>
   <% @posts.each do |post| %>
     <div class= "posts">
-      <strong><%= post.title%></strong> | 
-      <strong><%= post.user.full_name%></strong>
-      <p><%= post.content%></p>
+      <h3><%= post.title%></h3> 
+      <strong>By <%= post.user.full_name%></strong>
       <div class="meta">
         <%= link_to time_ago_in_words(post.created_at) + " ago |  ", post %>
-      <span class="admin">
-            <%=link_to "Delete Posts", post, method: :delete, data:{confirm: "Are you sure your want to delete this post?"}%>
-      </span>
+      <%if user_session%>
+        <%if user_session = post.user%>
+          <span class="admin">
+                <%=link_to "Delete Post", post, method: :delete, data:{confirm: "Are you sure your want to delete this post?"}%>
+          </span>
+        <%end%>
+      <%end%>
       </div>
     </div>
   <%end%>

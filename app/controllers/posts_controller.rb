@@ -1,9 +1,11 @@
 class PostsController < ApplicationController
+before_filter :authenticate_user!, :only => [:new, :create, :destroy]
 
     def index
-    @posts = Post.all
+    @posts = Post.order("created_at DESC")
+    #@posts = Post.all
     #ordenar los post
-    @posts.sort!{ |x,y| y.updated_at <=>x.updated_at}
+    #@posts.sort!{ |x,y| y.updated_at <=>x.updated_at}
     respond_to do |format|
       format.html # index.html.erb
     end

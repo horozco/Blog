@@ -12,7 +12,7 @@
 <%if @post.comments.size > 0%> 
 <fieldset>
    <legend>Comments</legend>
-<% @post.comments.sort!{ |x,y| y.updated_at <=> x.updated_at}%>
+<% @post.comments.sort!{ |x,y| y.created_at <=> x.created_at}%>
 <% @post.comments.each do |comment| %>
 
     <b><%= comment.commenter %></b><br>
@@ -30,7 +30,7 @@
   <fieldset>
    <legend>Write a Comment</legend>
     <%= f.input :commenter %>
-    <%= f.input :body %>
+    <%= f.input :body, :input_html =>{:rows => 8, :columns => 100} %>
     <div class="actions">
       <%= f.submit %>
     </div>
