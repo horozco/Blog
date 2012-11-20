@@ -5,27 +5,26 @@
 <fieldset>
 
   <h3>Title: "<%= @post.title %>"</h3>
-
+  <h3>Owner: "<%= @post.user.full_name %>"</h3>
   <h4><b>Content: <%= @post.content %></b></h4>
-  
 
- </fieldset>
-<%if @post.comments.size > 0%>
- 
+</fieldset>
+<%if @post.comments.size > 0%> 
 <fieldset>
    <legend>Comments</legend>
-
+<% @post.comments.sort!{ |x,y| y.updated_at <=> x.updated_at}%>
 <% @post.comments.each do |comment| %>
-  <p>
-    <b><%= comment.commenter %><br></b>
-  </p>
- 
-  <p>
+
+    <b><%= comment.commenter %></b><br>
+
     <%= comment.body %>
-  </p>
+    <br>
+    _____________________________________________
+    <br>
+
 <% end %>
  </fieldset>
- <%end%>
+<%end%>
 
 <%= simple_form_for([@post, @post.comments.build]) do |f| %> 
   <fieldset>

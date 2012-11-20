@@ -2,13 +2,11 @@
   <h1>All the Posts</h1>
 </div>
 
- <%@posts.sort!{ |x,y| y.updated_at <=>x.updated_at}%>
-
 <%if !@posts.empty?%>
   <% @posts.each do |post| %>
     <div class= "posts">
-      <strong><%= post.title%></strong>
-      <strong><%= post.user%></strong>
+      <strong><%= post.title%></strong> | 
+      <strong><%= post.user.full_name%></strong>
       <p><%= post.content%></p>
       <div class="meta">
         <%= link_to time_ago_in_words(post.created_at) + " ago |  ", post %>

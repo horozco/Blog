@@ -2,7 +2,8 @@ class PostsController < ApplicationController
 
     def index
     @posts = Post.all
-
+    #ordenar los post
+    @posts.sort!{ |x,y| y.updated_at <=>x.updated_at}
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -27,7 +28,7 @@ class PostsController < ApplicationController
 
 def create
     @post = Post.new(params[:post])
-
+    @post.user_id = current_user.id
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: ':) Post was created.' }
