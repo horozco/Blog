@@ -1,4 +1,7 @@
 Blog::Application.routes.draw do
+  
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  
   devise_for :users
 
   resources :posts do 
@@ -16,6 +19,7 @@ Blog::Application.routes.draw do
     #
     get ':profile_name', to: 'devise/registrations#edit', as: :edit_user
   end
+
 
 
   # The priority is based upon order of creation:

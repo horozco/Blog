@@ -1,42 +1,60 @@
-<div class="hero-unit">
-  <h1>Post</h1>
+<div class="well">
+  <h1><%= @post.title %></h1>
 </div>
 
 <fieldset>
+  <legend>Post Content</legend>
+  
+  <%= link_to "Posted By: #{@post.user.full_name}", edit_user_path(@post.user) %></h3>
+  <div class = "well">
+    <%= markdown(@post.content) %>
+  </div>
 
-  <h3>Title: "<%= @post.title %>"</h3>
-  <h3>Owner: "<%= @post.user.full_name %>"</h3>
-  <h4><b>Content: <%= @post.content %></b></h4>
+  <script src='http://connect.facebook.net/en_US/all.js'></script>
+  <script type="text/javascript">
+    FB.init({appId: "219832841483034", status: true, cookie: true});
+  </script>
+
+  <p><a class="post-to-feed" data-url="<%= post_url(@post) %>" data-title="<%= @post.title.upcase%>" data-content="<%= truncate(@post.content.to_s, :length => 17, :separator => ' ') %>">Post to Facebook</a></p>
+  <p id='msg'></p>
+
+  <%= tweet_button(:url => @post_url,
+                     :via => "horozco4",
+                     :text => truncate(@post.content.to_s, :length => 100, :separator => ' ') ) %>
 
 </fieldset>
 <%if @post.comments.size > 0%> 
-<fieldset>
-   <legend>Comments</legend>
-<% @post.comments.sort!{ |x,y| y.created_at <=> x.created_at}%>
-<% @post.comments.each do |comment| %>
+  <fieldset>
+    <legend>Comments</legend>
+    <% @post.comments.each do |comment| %>
+      <div class = "well">
+        <b><%= comment.commenter %></b><br>
 
-    <b><%= comment.commenter %></b><br>
+        <%= comment.body %>
+      </div>
+    <% end %>
+   </fieldset>
 
-    <%= comment.body %>
-    <br>
-    _____________________________________________
-    <br>
-
-<% end %>
- </fieldset>
 <%end%>
 
 <%= simple_form_for([@post, @post.comments.build]) do |f| %> 
   <fieldset>
    <legend>Write a Comment</legend>
-    <%= f.input :commenter %>
-    <%= f.input :body, :input_html =>{:rows => 8, :columns => 100} %>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
+    <div class = "well">
+      <%= f.input :commenter %>
+      <%= f.input :body, :input_html =>{:rows => 8, :columns => 100} %>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    </div>  
   </fieldset>
 <% end %>
  
 <br />
+
+<div id='fb-root'>
+    
+</div>
  
 <%= link_to 'Back to Posts', posts_path, class: "btn" %>
+<%= link_to 'Edit Post', edit_post_path(@post), class: "btn" %>

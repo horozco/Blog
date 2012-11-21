@@ -1,42 +1,54 @@
 class PostsController < ApplicationController
-before_filter :authenticate_user!, :only => [:new, :create, :destroy]
 
-    def index
+before_filter :authenticate_user!, :only => [:new, :create, :destroy, :edit, :update]
+before_filter :authenticate_same_user, :only => [:update, :new, :create, :destroy, :edit]
+
+  def authenticate_same_user
+    @post = Post.find(params[:id])
+      if current_user == @post.user
+        true
+      else
+        redirect_to post_path(@post), :alert => "You are not authorized to edit this post"
+        
+      end
+  end
+
+  def index
     @posts = Post.order("created_at DESC")
-    #@posts = Post.all
-    #ordenar los post
-    #@posts.sort!{ |x,y| y.updated_at <=>x.updated_at}
-    respond_to do |format|
-      format.html # index.html.erb
-    end
-
   end
 
   def show
     @post = Post.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-    end
+    @comments = @post.comments.order("created_at DESC")
   end
 
   def new
     @post = Post.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-    end
   end
 
-def create
+  def create
     @post = Post.new(params[:post])
-    @post.user_id = current_user.id
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: ':) Post was created.' }
+    @post.user = current_user
+    if @post.save
+      redirect_to @post, notice: ':) Post was created.'
       else
-        format.html { render action: "new" }
+      flash[:error] = "There were some errors creating your post. :("
+      render action: "new"
       end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+
+    if @post.update_attributes(params[:post])
+        redirect_to @post, notice: ':) Post was updated.'
+    else
+      flash[:error] = "There were some errors creating your post. :("
+      render action: "edit"
     end
   end
 
@@ -48,9 +60,5 @@ def create
       format.html { redirect_to posts_url }
     end
   end
-
-#  def sort
-#    @posts = Post.all
-#  end
 
 end

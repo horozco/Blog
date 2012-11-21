@@ -2,18 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.posts p {
-  margin: 4px 0
-}
 
-.posts.hover{
+.post:hover{
   background: #CEECF5;
 }
 
-.status .admin{
+.post .admin{
   display: none;
 }
 
-.status.hover .admin{
+.post:hover .admin{
   display: inline;
 }
