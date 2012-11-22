@@ -12,10 +12,11 @@
   <% end %>
   <div class="well">
   <%= f.input :title %>
-
-  <%= f.input :content, :input_html =>{:rows => 8, :columns => 100}   %>
+  <%= f.input :content, :input_html =>{:rows => 10}  %>
   </div>
-<div class="actions">
-    <%= f.submit %>
+
+<div class="well">
+    <%= f.submit class: "btn-primary" %>
 </div>
+
 <% end %>

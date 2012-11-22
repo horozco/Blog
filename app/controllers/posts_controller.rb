@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
 before_filter :authenticate_user!, :only => [:new, :create, :destroy, :edit, :update]
-before_filter :authenticate_same_user, :only => [:update, :new, :create, :destroy, :edit]
+before_filter :authenticate_same_user, :only => [:update, :destroy, :edit]
 
   def authenticate_same_user
     @post = Post.find(params[:id])

@@ -12,6 +12,5 @@ class CommentsController < ApplicationController
     else
       redirect_to post_path(@post), :error => "Your comment couldn't be submitted. :("
     end
-
   end
 end

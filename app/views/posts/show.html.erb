@@ -15,26 +15,24 @@
     FB.init({appId: "219832841483034", status: true, cookie: true});
   </script>
 
-  <p><a class="post-to-feed" data-url="<%= post_url(@post) %>" data-title="<%= @post.title.upcase%>" data-content="<%= truncate(@post.content.to_s, :length => 17, :separator => ' ') %>">Post to Facebook</a></p>
-  <p id='msg'></p>
-
+  <a class="post-to-feed" data-url="<%= post_url(@post) %>" data-title="<%= @post.title.upcase%>" data-content="<%= truncate(@post.content.to_s, :length => 17, :separator => ' ') %>"><p class= "btn btn-small btn-primary">Share to Facebook</p></a> - 
   <%= tweet_button(:url => @post_url,
-                     :via => "horozco4",
-                     :text => truncate(@post.content.to_s, :length => 100, :separator => ' ') ) %>
-
+                   :via => "horozco4",
+                   :text => truncate(@post.content.to_s, :length => 100, :separator => ' '),
+                   :count => "horizontal"
+                  ) %>
 </fieldset>
+
 <%if @post.comments.size > 0%> 
   <fieldset>
     <legend>Comments</legend>
     <% @post.comments.each do |comment| %>
       <div class = "well">
         <b><%= comment.commenter %></b><br>
-
         <%= comment.body %>
       </div>
     <% end %>
    </fieldset>
-
 <%end%>
 
 <%= simple_form_for([@post, @post.comments.build]) do |f| %> 
@@ -44,17 +42,11 @@
       <%= f.input :commenter %>
       <%= f.input :body, :input_html =>{:rows => 8, :columns => 100} %>
       <div class="actions">
-        <%= f.submit %>
+        <%= f.button :submit, "Share Comment", class: "btn-primary" %>
       </div>
     </div>  
   </fieldset>
 <% end %>
- 
-<br />
-
-<div id='fb-root'>
-    
-</div>
  
 <%= link_to 'Back to Posts', posts_path, class: "btn" %>
 <%= link_to 'Edit Post', edit_post_path(@post), class: "btn" %>
