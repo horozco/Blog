@@ -1,3 +1,8 @@
+<% content_for :after_body do %>
+  <script src='http://connect.facebook.net/en_US/all.js'></script>
+<% end %>
+
+<%= hidden_field_tag "facebook_config", FACEBOOK_CONFIG[Rails.env][:app_id] %>
 <div class="well">
   <h1><%= @post.title %></h1>
 </div>
@@ -10,43 +15,36 @@
     <%= markdown(@post.content) %>
   </div>
 
-  <script src='http://connect.facebook.net/en_US/all.js'></script>
-  <script type="text/javascript">
-    FB.init({appId: "219832841483034", status: true, cookie: true});
-  </script>
-
   <a class="post-to-feed" data-url="<%= post_url(@post) %>" data-title="<%= @post.title.upcase%>" data-content="<%= truncate(@post.content.to_s, :length => 17, :separator => ' ') %>"><p class= "btn btn-small btn-primary">Share to Facebook</p></a> - 
   <%= tweet_button(:url => @post_url,
                    :via => "horozco4",
                    :text => truncate(@post.content.to_s, :length => 100, :separator => ' '),
                    :count => "horizontal"
                   ) %>
+
 </fieldset>
 
-<%if @post.comments.size > 0%> 
+<div id="comments">
   <fieldset>
-    <legend>Comments</legend>
-    <% @post.comments.each do |comment| %>
-      <div class = "well">
-        <b><%= comment.commenter %></b><br>
-        <%= comment.body %>
-      </div>
-    <% end %>
-   </fieldset>
-<%end%>
+    <legend>Comments</legend>  
+    <%= render @post.comments%>
+  </fieldset>
+</div>
 
-<%= simple_form_for([@post, @post.comments.build]) do |f| %> 
+<%= simple_form_for([@post, @post.comments.build], remote: true) do |f| %> 
   <fieldset>
    <legend>Write a Comment</legend>
     <div class = "well">
-      <%= f.input :commenter %>
+      <%if !current_user%>
+        <%= f.input :commenter %>
+      <%end%>
       <%= f.input :body, :input_html =>{:rows => 8, :columns => 100} %>
       <div class="actions">
-        <%= f.button :submit, "Share Comment", class: "btn-primary" %>
+        <%= f.button :submit, "Comment", class: "btn-primary" %>
       </div>
     </div>  
   </fieldset>
 <% end %>
- 
+
 <%= link_to 'Back to Posts', posts_path, class: "btn" %>
 <%= link_to 'Edit Post', edit_post_path(@post), class: "btn" %>

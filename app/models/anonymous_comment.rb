@@ -1,0 +1,2 @@
+class AnonymousComment < Comment
+end

@@ -1,16 +1,27 @@
 class CommentsController < ApplicationController
+  
   def create
     #a qué post le pertenece el comment?
     @post = Post.find(params[:post_id])
-    if user_session = @post.user
+    if current_user
+      @comment = @post.user_comments.build(params[:comment])
+      @comment.user = current_user
       
+    else
+      @comment = @post.anonymous_comments.build(params[:comment])
     end
-    @comment = @post.comments.create(params[:comment])
     
     if @comment.save
-      redirect_to post_path(@post), :notice => "Your comment was submitted. :)"
+      respond_to do |format|
+        format.html {redirect_to post_path(@post), :notice => "Your comment was submitted. :)"}
+        format.js
+      end
     else
-      redirect_to post_path(@post), :error => "Your comment couldn't be submitted. :("
-    end
-  end
+      respond_to do |format|
+        format.html {redirect_to post_path(@post), :alert => "Your comment couldn't be submitted. :("}
+        format.js
+      end
+    end 
+  end 
+
 end

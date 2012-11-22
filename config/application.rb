@@ -63,3 +63,5 @@ module Blog
     config.assets.initialize_on_precompile = false
   end
 end
+
+FACEBOOK_CONFIG = YAML.load_file(File.join(Rails.root, "config", "facebook.yml"))

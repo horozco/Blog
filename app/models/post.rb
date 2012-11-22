@@ -7,5 +7,6 @@ class Post < ActiveRecord::Base
   #
   has_many :comments, dependent: :destroy
   #
-
+  has_many :user_comments, dependent: :destroy
+  has_many :anonymous_comments, dependent: :destroy
 end

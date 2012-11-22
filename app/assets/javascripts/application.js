@@ -13,38 +13,3 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-  
-
-$(function(){
-  $('.post-to-feed').live("click", function(){
-    postToFeed(
-      $(this).attr("data-url"),
-      $(this).attr("data-title"),
-      $(this).attr("data-content")
-    );
-  })
-})  
-
-function postToFeed(url, title, content) {
-  console.log(url);
-  console.log(title);
-  console.log(content);
-  // calling the API ...
-  var obj = {
-    method: 'feed',
-    redirect_uri: url,
-    link: url,
-
-    picture: 'http://fbrell.com/f8.jpg',
-    name: title,
-    caption: content,
-    description: 'Posted in Blog S.C.B by: '
-  };
-
-  function callback(response) {
-    document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
-  }
-
-  FB.ui(obj, callback);
-}    
-
