@@ -1,4 +1,9 @@
 <div class = "well">
   <b><%=anonymous_comment.commenter %></b><br>
   <%= anonymous_comment.body %>
+
+<%=link_to "like",  comment_likes_path(anonymous_comment), method: :post %> - 
+<%= render :partial => "likes/index", :locals => {comment: anonymous_comment} %>
+
+  <%=link_to "Delete Comment", post_comment_path(anonymous_comment.post, anonymous_comment), method: :delete, data:{confirm: "Are you sure your want to delete this comment?", remote: true}%>
 </div>

@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   has_attached_file :post_image, :styles => { :medium => "300x300>", :thumb => "100x100>" },
   					:url => "/assets/posts/:id/:style/:basename.:extension",
   					:path => ":rails_root/public/assets/posts/:id/:style/:basename.:extension"
-  validates_attachment :post_image, :presence => true,
+  validates_attachment :post_image,
   :content_type => { :content_type => ["image/jpg", "image/jpeg", "image/png"]  },
   :size => { :less_than => 3.megabytes }
   #

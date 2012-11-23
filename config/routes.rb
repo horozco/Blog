@@ -8,6 +8,10 @@ Blog::Application.routes.draw do
     resources :comments
   end
 
+  resources :comments do
+    resources :likes
+  end
+
   root :to => "posts#index"
 
   get 'feed', to: 'posts#index', as: :feed
@@ -19,6 +23,8 @@ Blog::Application.routes.draw do
     #
     get ':profile_name', to: 'devise/registrations#edit', as: :edit_user
   end
+
+  ##match '/posts/:post_id/comments/:id(.:format)' => 'comments#destroy'
 
 
 
