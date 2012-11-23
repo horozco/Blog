@@ -1,14 +1,11 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
-  # Setup accessible (or protected) attributes for your model
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable, :omniauthable, :registerable, :confirmable
+
+
   attr_accessible  :full_name, :email, :password, :password_confirmation, :remember_me,
                     :provider, :uid
-  # attr_accessible :title, :body
 
   validates_presence_of :full_name
 
@@ -30,7 +27,7 @@ class User < ActiveRecord::Base
                              )
     end
     user
- end
+  end
 
  def self.new_with_session(params, session)
     super.tap do |user|

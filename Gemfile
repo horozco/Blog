@@ -9,6 +9,8 @@ gem 'pg', '0.14.1'
 
 #gem 'sqlite3'
 
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+
 gem 'devise','2.1.2'
 
 gem 'simple_form'

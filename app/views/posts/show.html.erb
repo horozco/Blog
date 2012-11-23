@@ -3,15 +3,18 @@
 <% end %>
 
 <%= hidden_field_tag "facebook_config", FACEBOOK_CONFIG[Rails.env][:app_id] %>
-<div class="well">
-  <h1><%= @post.title %></h1>
-</div>
 
 <fieldset>
   <legend>Post Content</legend>
+
+<div class="well">
+  <h1><%= @post.title %></h1>
+</div>
   
-  <%= link_to "Posted By: #{@post.user.full_name}", edit_user_path(@post.user) %></h3>
+  <%= link_to "Posted By: #{@post.user.full_name}", edit_user_path(@post.user) %> | 
+  <%= link_to 'Edit Post', edit_post_path(@post), class: "btn-link" %>
   <div class = "well">
+    <%= image_tag @post.post_image.url(:medium), class: "img-polaroid" %>
     <%= markdown(@post.content) %>
   </div>
 
@@ -45,6 +48,5 @@
     </div>  
   </fieldset>
 <% end %>
-
 <%= link_to 'Back to Posts', posts_path, class: "btn" %>
 <%= link_to 'Edit Post', edit_post_path(@post), class: "btn" %>

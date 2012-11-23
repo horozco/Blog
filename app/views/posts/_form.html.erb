@@ -15,8 +15,13 @@
   <%= f.input :content, :input_html =>{:rows => 10}  %>
   </div>
 
+<div class="photo">
+  <%= f.file_field :post_image%> 
+</div>
+
 <div class="well">
     <%= f.submit class: "btn-primary" %>
 </div>
+
 
 <% end %>

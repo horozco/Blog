@@ -27,3 +27,7 @@ body{
 .alert{
   margin-top: 10px;
 }
+
+.photo{
+  padding-bottom: 15px !important;
+}
