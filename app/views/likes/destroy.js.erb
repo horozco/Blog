@@ -1,1 +1,1 @@
-$("#likes_<%=@comment.id%>").replaceWith("<%= escape_javascript render(:partial => "likes/index", :locals => {comment: @comment}) %>"); 
+$('.like_class[data-id="<%=@comment.id%>"]').replaceWith("<%= escape_javascript render(:partial => "likes/index", :locals => {comment: @comment}) %>"); 

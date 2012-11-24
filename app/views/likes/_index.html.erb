@@ -1,10 +1,16 @@
-<div id = "likes_<%=comment.id%>">
+<div class="like_class" data-id = "<%=comment.id%>">
    <% if user_signed_in?%>
           <%if comment.likes.where(:user_id => current_user.id).count >= 1 %>
                 <%like = comment.likes.where(:user_id => current_user)  %>
-                <%=link_to "Unlike",  comment_like_path(comment, like.first), method: :delete , :remote => true, class: "btn btn-warning"%> -
+                
+                <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-thumbs-down") + " Unlike"),
+                  comment_like_path(comment, like.first), method: :delete, remote: true, :class => "btn btn-warning")%>
           <%else%>
-                  <%=link_to "like",  comment_likes_path(comment), method: :post , :remote => true, class: "btn btn-primary"%> -
+              <%=link_to(
+                  content_tag(:span, content_tag(:i, nil, :class => "icon-thumbs-up") + " like"),
+                  comment_likes_path(comment), method: :post, remote: true, :class => "btn btn-primary"
+                )
+              %>
           <%end%>
    <%end%>
   <b>This comment has <%=comment.likes.count %> Likes</b><br>
