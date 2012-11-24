@@ -16,7 +16,9 @@ class LikesController < ApplicationController
     @like = Like.new()
     @like.comment = @comment
     @like.user = @user
-    @like.save()
+    if @like.save()
+      redirect_to @like
+    end
   end
 
   def destroy

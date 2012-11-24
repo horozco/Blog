@@ -1,3 +1,6 @@
 <div class = "like">
+   <% if user_signed_in?%>
+   		<%=link_to "like",  comment_likes_path(comment), method: :post %> -
+   <%end%>
   <b>This comment has <%=comment.likes.count %> Likes</b><br>
 </div>

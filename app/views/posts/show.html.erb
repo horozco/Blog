@@ -12,7 +12,9 @@
 </div>
   
   <%= link_to "Posted By: #{@post.user.full_name}", edit_user_path(@post.user) %> | 
-  <%= link_to 'Edit Post', edit_post_path(@post), class: "btn-link" %>
+  <% if current_user == @post.user%>
+    <%= link_to 'Edit Post', edit_post_path(@post), class: "btn-link" %>
+  <%end%>
   <div class = "well">
     <%if !@post.post_image%>
       <%= image_tag @post.post_image.url(:medium), class: "img-polaroid" %>
@@ -56,4 +58,6 @@
   </fieldset>
 <% end %>
 <%= link_to 'Back to Posts', posts_path, class: "btn" %>
-<%= link_to 'Edit Post', edit_post_path(@post), class: "btn" %>
+<% if current_user == @post.user%>
+  <%= link_to 'Edit Post', edit_post_path(@post), class: "btn" %>
+<% end %>
