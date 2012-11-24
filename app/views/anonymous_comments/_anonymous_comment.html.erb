@@ -1,8 +1,8 @@
-<div class = "well">
+<div class = "well comment" data-id="<%=anonymous_comment.id%>">
   <b><%=anonymous_comment.commenter %></b><br>
   <%= anonymous_comment.body %>
 
-  <%= render :partial => "likes/index", :locals => {comment: anonymous_comment} %>
+  <%= render :partial => "likes/index", :locals => {comment: anonymous_comment} %>  
 
   <% if current_user == anonymous_comment.post.user%>
   	<%=link_to "Delete Comment", post_comment_path(anonymous_comment.post, anonymous_comment), method: :delete, data:{confirm: "Are you sure your want to delete this comment?", remote: true}%>

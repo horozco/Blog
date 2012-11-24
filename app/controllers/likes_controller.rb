@@ -16,12 +16,11 @@ class LikesController < ApplicationController
     @like = Like.new()
     @like.comment = @comment
     @like.user = @user
-    if @like.save()
-      redirect_to @like
-    end
+    @like.save()
   end
 
   def destroy
+    @comment = Comment.find(params[:comment_id])
     like = Like.find(params[:id]).destroy
   end
   

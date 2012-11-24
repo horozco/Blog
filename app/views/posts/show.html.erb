@@ -16,7 +16,7 @@
     <%= link_to 'Edit Post', edit_post_path(@post), class: "btn-link" %>
   <%end%>
   <div class = "well">
-    <%if !@post.post_image%>
+    <%if @post.post_image%>
       <%= image_tag @post.post_image.url(:medium), class: "img-polaroid" %>
     <%end%>
     <%= markdown(@post.content) %>

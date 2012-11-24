@@ -1,6 +1,11 @@
-<div class = "like">
+<div id = "likes_<%=comment.id%>">
    <% if user_signed_in?%>
-   		<%=link_to "like",  comment_likes_path(comment), method: :post %> -
+          <%if comment.likes.where(:user_id => current_user.id).count >= 1 %>
+                <%like = comment.likes.where(:user_id => current_user)  %>
+                <%=link_to "Unlike",  comment_like_path(comment, like.first), method: :delete , :remote => true, class: "btn btn-warning"%> -
+          <%else%>
+                  <%=link_to "like",  comment_likes_path(comment), method: :post , :remote => true, class: "btn btn-primary"%> -
+          <%end%>
    <%end%>
   <b>This comment has <%=comment.likes.count %> Likes</b><br>
 </div>
