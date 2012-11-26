@@ -26,10 +26,10 @@ group :test, :development do
   gem "rspec-rails", "~> 2.0"
 end
 
-group :test, do
+group :test do
   gem 'simplecov', :require => false
   gem 'shoulda'
-  gem 'factory_girls_rails'
+  gem 'factory_girl_rails'
   # gem 'database_cleaner'   # might need it in the future (https://github.com/bmabey/database_cleaner)
 end
 
