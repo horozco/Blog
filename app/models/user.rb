@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
 
   validates_presence_of :full_name
 
-  has_many :likes
+  validates :email, :presence => true, :uniqueness => :true
 
-  validates_uniqueness_of :email
+  has_many :likes
   
   has_many :posts, dependent: :destroy
 
